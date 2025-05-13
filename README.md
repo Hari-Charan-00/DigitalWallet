@@ -51,7 +51,7 @@ Endpoint	Method	Description
 /expenses/	POST	Add a new expense
 /expenses/{id}	DELETE	Delete an expense
 /summary/weekly	GET	Get this week's spending summary
-/habits/trends	GET	Analyze patterns in spending
+/habits/trends	GET	Analyse patterns in spending
 
 🏗️ Let's Start Building the APK
 Here’s the plan for the next steps:
@@ -61,3 +61,8 @@ Here’s the plan for the next steps:
 🔹 Step 3: Show a list of recent expenses
 🔹 Step 4: Generate weekly/monthly summaries
 🔹 Step 5: Parse SMS for bank transaction detection
+
+-------------
+Developed the script for the following features
+-  Considering the inputs like amount, description, category
+-  View Expenses, Delete Expenses
