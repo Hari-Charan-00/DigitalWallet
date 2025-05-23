@@ -1,68 +1,66 @@
-A digital tracker that help in money savings
-I'll update this README.md
+# Digital Wallet - Expense Tracker
 
-📌 Phase 1 – Planning the MVP
-🔹 1. Core Features for MVP
-✅ Add expenses manually (amount, category, description)
+A simple Digital Wallet app focusing on expense tracking and savings. This project is designed step-by-step to build a real-world application with full stack capabilities, from UI to backend APIs and deployment.
 
-✅ View expense history
+---
 
-✅ See weekly/monthly summaries
+## 📌 Project Overview
 
-✅ Identify overspending habits (e.g., category trends)
+The goal is to create a **Digital Expense Tracker** that allows users to add, view, edit, and delete expenses, while later adding advanced features like SMS parsing, AI nudges, and budget alerts.
 
-🔹 2. Optional Add-ons (later)
-SMS parsing (bank transaction alerts)
+---
 
-Receipt OCR
+## 🚀 Current Progress: Step 1 & Step 2 Complete
 
-AI nudges or goal tracking
+### Step 1 - Kivy-based Desktop App (Local SQLite)
+- Built a basic UI with Kivy for manual expense entry.
+- Implemented expense storage using a local SQLite database.
+- Features include adding, editing, deleting, and viewing expenses.
+- Basic popup notifications for success/error messages.
+- UI improvements are planned for better usability.
 
-Budget alerts
+### Step 2 - Backend API with FastAPI
+- Created a RESTful API backend with FastAPI to handle expenses.
+- API supports CRUD operations on expenses.
+- Used SQLite for persistent data storage.
+- Server runs locally, ready for integration with frontend/mobile app.
+- Tested using uvicorn with live reload support.
 
-🔹 3. Tech Stack
-Layer	Tech	Notes
-Backend API	FastAPI (Python)	Fast, modern, async-ready
-Database	SQLite (start simple) → PostgreSQL	SQLite good for local dev
-Frontend	Optional now, or simple HTML + JS / React later	Can start with Postman or Swagger
-Auth	JWT (optional)	If you want multi-user login
-Hosting	Local first → then Render, Railway, or Heroku	
+---
 
-🔹 4. Data Model Example
-python
-Copy
-Edit
-User
-- id
-- name
-- email
-- password_hash (if login enabled)
+## 🔧 Tech Stack
 
-Expense
-- id
-- user_id
-- amount
-- category (e.g., Food, Travel)
-- description
-- timestamp
-🔹 5. Basic API Endpoints
-Endpoint	Method	Description
-/expenses/	GET	List all expenses
-/expenses/	POST	Add a new expense
-/expenses/{id}	DELETE	Delete an expense
-/summary/weekly	GET	Get this week's spending summary
-/habits/trends	GET	Analyse patterns in spending
+- **Frontend:** Kivy (Python)
+- **Backend:** FastAPI (Python)
+- **Database:** SQLite (local for dev)
+- **API Testing:** Postman / Swagger UI
 
-🏗️ Let's Start Building the APK
-Here’s the plan for the next steps:
+---
 
-🔹 Step 1: Build the Kivy UI for adding expenses
-🔹 Step 2: Save the expenses to a local SQLite database
-🔹 Step 3: Show a list of recent expenses
-🔹 Step 4: Generate weekly/monthly summaries
-🔹 Step 5: Parse SMS for bank transaction detection
+## 📂 Project Structure
 
--------------
-Developed the script for the following features
--  Considering the inputs like amount, description, category
--  View Expenses, Delete Expenses
+- `main.py` — Kivy UI app for Step 1
+- `DigiApi.py` — FastAPI backend server for Step 2
+- `expenses.db` — SQLite database file
+- Other scripts/tools as required
+
+---
+
+## 🔜 Next Steps
+
+- Step 3: Test backend API thoroughly using Postman and Swagger UI.
+- Step 4: Integrate Kivy frontend with FastAPI backend via HTTP requests.
+- Step 5: Enhance UI/UX with better navigation, scrolling, and notifications.
+- Step 6: Deployment planning with Docker, Kubernetes, Terraform, CI/CD pipeline (DevOps focus).
+- Step 7: Optional advanced features (SMS parsing, AI nudges, etc.)
+
+---
+
+## 📌 How to Run
+
+### FastAPI Backend
+```bash
+pip install fastapi uvicorn
+python -m uvicorn DigiApi:app --reload --port 9000
+pip install kivy
+python main.py
