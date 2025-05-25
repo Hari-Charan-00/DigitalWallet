@@ -10,7 +10,7 @@ The goal is to create a **Digital Expense Tracker** that allows users to add, vi
 
 ---
 
-## 🚀 Current Progress: Step 1 & Step 2 Complete
+## 🚀 Current Progress: Step 1 - Step 5 Complete
 
 ### Step 1 - Kivy-based Desktop App (Local SQLite)
 - Built a basic UI with Kivy for manual expense entry.
@@ -26,6 +26,12 @@ The goal is to create a **Digital Expense Tracker** that allows users to add, vi
 - Server runs locally, ready for integration with frontend/mobile app.
 - Tested using uvicorn with live reload support.
 
+### Step 3: Test backend API thoroughly using Postman and Swagger UI.
+- Tested the APIs (GET, POST, PUT, DELETE, USER CREATION, TOKEN MANAGEMENT, REFRESH)
+### Step 4: Integrate Kivy frontend with FastAPI backend via HTTP requests.
+- Mapped the frontend APK with the FastAPI
+- Every action we perform will be held by these APIs from the CLI too
+### Step 5: Enhance UI/UX with better navigation, scrolling, and notifications.
 ---
 
 ## 🔧 Tech Stack
@@ -47,10 +53,6 @@ The goal is to create a **Digital Expense Tracker** that allows users to add, vi
 ---
 
 ## 🔜 Next Steps
-
-- Step 3: Test backend API thoroughly using Postman and Swagger UI.
-- Step 4: Integrate Kivy frontend with FastAPI backend via HTTP requests.
-- Step 5: Enhance UI/UX with better navigation, scrolling, and notifications.
 - Step 6: Deployment planning with Docker, Kubernetes, Terraform, CI/CD pipeline (DevOps focus).
 - Step 7: Optional advanced features (SMS parsing, AI nudges, etc.)
 
