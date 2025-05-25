@@ -1,68 +1,123 @@
-A digital tracker that help in money savings
-I'll update this README.md
+### Step-by-Step Fix: Move Project to WSL and Dockerize
+- Step 1: Open your WSL terminal
+Run:
+wsl
+You’ll land in something like: username@YourPC:~$
 
-📌 Phase 1 – Planning the MVP
-🔹 1. Core Features for MVP
-✅ Add expenses manually (amount, category, description)
+- Step 2: Create a project directory in WSL
+Inside WSL, do:
 
-✅ View expense history
+mkdir -p ~/projects/digital-wallet
+cd ~/projects/digital-wallet
 
-✅ See weekly/monthly summaries
+- Step 3: Copy files from Windows to WSL
+Still inside WSL, copy your Windows files using the /mnt/ path:
 
-✅ Identify overspending habits (e.g., category trends)
+cp /mnt/c/Users/Haricharan/Documents/DigitalWallet/sqlite-tools-win-x64-3490200/*.py .
+cp /mnt/c/Users/Haricharan/Documents/DigitalWallet/sqlite-tools-win-x64-3490200/expenses.db .
 
-🔹 2. Optional Add-ons (later)
-SMS parsing (bank transaction alerts)
+✅ Now you have:
 
-Receipt OCR
+DigiApi.py
+main.py
+expenses.db
+in your WSL folder, ready to use.
 
-AI nudges or goal tracking
+- Step 4: Create requirements.txt
+Still in the same folder (~/projects/digital-wallet):
 
-Budget alerts
+nano requirements.txt
+Paste:
 
-🔹 3. Tech Stack
-Layer	Tech	Notes
-Backend API	FastAPI (Python)	Fast, modern, async-ready
-Database	SQLite (start simple) → PostgreSQL	SQLite good for local dev
-Frontend	Optional now, or simple HTML + JS / React later	Can start with Postman or Swagger
-Auth	JWT (optional)	If you want multi-user login
-Hosting	Local first → then Render, Railway, or Heroku	
+fastapi
+uvicorn[standard]
 
-🔹 4. Data Model Example
-python
-Copy
-Edit
-User
-- id
-- name
-- email
-- password_hash (if login enabled)
+Press Ctrl + O, then Enter to save. Press Ctrl + X to exit.
 
-Expense
-- id
-- user_id
-- amount
-- category (e.g., Food, Travel)
-- description
-- timestamp
-🔹 5. Basic API Endpoints
-Endpoint	Method	Description
-/expenses/	GET	List all expenses
-/expenses/	POST	Add a new expense
-/expenses/{id}	DELETE	Delete an expense
-/summary/weekly	GET	Get this week's spending summary
-/habits/trends	GET	Analyse patterns in spending
+- Step 5: Create Dockerfile
+Still in that directory:
 
-🏗️ Let's Start Building the APK
-Here’s the plan for the next steps:
+nano Dockerfile
+Paste:
 
-🔹 Step 1: Build the Kivy UI for adding expenses
-🔹 Step 2: Save the expenses to a local SQLite database
-🔹 Step 3: Show a list of recent expenses
-🔹 Step 4: Generate weekly/monthly summaries
-🔹 Step 5: Parse SMS for bank transaction detection
+FROM python:3.11-slim
 
--------------
-Developed the script for the following features
--  Considering the inputs like amount, description, category
--  View Expenses, Delete Expenses
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 9000
+
+CMD ["uvicorn", "DigiApi:app", "--host", "0.0.0.0", "--port", "9000", "--reload"]
+Save and exit.
+
+- Step 6: Build Docker Image
+
+docker build -t digiapi-backend .
+- Step 7: Run the Container
+
+docker run -d -p 9000:9000 --name digiapi-container digiapi-backend
+- Step 8: Test It!
+Open browser in Windows and visit:
+
+http://localhost:9000/docs
+You should see FastAPI running 
+
+-----------
+if the url is not reachable, do the below debugging
+- How to Check if It’s Running
+Run this in WSL to see running containers:
+docker ps
+
+You should see something like:
+
+CONTAINER ID   IMAGE             PORTS                    NAMES
+abc123         digiapi-backend   0.0.0.0:9000->9000/tcp   digiapi-container
+
+- If You Change Code
+If you modify your Python files (like DigiApi.py), you need to:
+
+Rebuild the image:
+
+docker build -t digiapi-backend .
+Restart the container:
+
+docker stop digiapi-container
+docker rm digiapi-container
+docker run -d -p 9000:9000 --name digiapi-container digiapi-backend
+
+### Step-by-Step Troubleshooting
+- Step 1: View Container Logs
+Run this command to see what’s happening inside:
+
+docker logs -f digiapi-container
+
+- Step 2: Manually Exec into the Container
+If the logs don't help, jump inside the container to run things yourself:
+
+docker exec -it digiapi-container /bin/bash
+
+I got the below error, because we haven't added all the modules in our requirements.txt
+
+The error is:
+ModuleNotFoundError: No module named 'passlib'
+
+- Fix: Add passlib to requirements.txt
+Update your requirements.txt to include:
+
+fastapi
+uvicorn[standard]
+passlib[bcrypt]
+python-jose
+
+- Then Rebuild and Restart Docker
+Now do:
+docker build -t digiapi-backend .
+docker stop digiapi-container
+docker rm digiapi-container
+docker run -d -p 9000:9000 --name digiapi-container digiapi-backend
+
+Our docker will run and then the URL is reachable.
