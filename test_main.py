@@ -4,7 +4,7 @@ from DigiApi import app
 client = TestClient(app)
 
 def test_root():
-    response = client.get("/")
+    response = client.get("/expenses/")
     assert response.status_code == 200
 
 def test_add_expense():
