@@ -66,3 +66,6 @@ Here’s the plan for the next steps:
 Developed the script for the following features
 -  Considering the inputs like amount, description, category
 -  View Expenses, Delete Expenses
+--------------------
+-  Developed the entire APK
+-  Deployed the APK in cloud too
