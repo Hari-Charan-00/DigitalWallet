@@ -68,4 +68,4 @@ Developed the script for the following features
 -  View Expenses, Delete Expenses
 --------------------
 -  Developed the entire APK
--  Deployed the APK in cloud too
+-  Deployed the APK in the cloud too
