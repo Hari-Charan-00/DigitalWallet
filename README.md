@@ -1,4 +1,4 @@
-A digital tracker that helps in money savings
+A digital tracker that helps with money savings
 I'll update this README.md
 
 📌 Phase 1 – Planning the MVP
