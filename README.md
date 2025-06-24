@@ -1,5 +1,5 @@
 A digital tracker that helps with money savings
-I'll update this README.md
+Latest README.md
 
 📌 Phase 1 – Planning the MVP
 🔹 1. Core Features for MVP
